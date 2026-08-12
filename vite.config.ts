@@ -6,6 +6,7 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import path from 'path'
 
 export default defineConfig({
+  base: '/OAWriter/',
   plugins: [react(), tailwindcss(), nodePolyfills({ include: ['events', 'path'] })],
   resolve: {
     alias: {
