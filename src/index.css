@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #f3f4f6;
+  }
+
+  #root {
+    width: 100%;
+    min-height: 100vh;
+    text-align: left;
+  }
+}
+
+/* ─── Numbered paragraphs ───────────────────────────────────────────────────── */
+
+.slate-editor {
+  counter-reset: para-num;
+  line-height: var(--doc-lh, 2);
+}
+
+.slate-editor .slate-numbered-p {
+  counter-increment: para-num;
+  padding-left: 2em;
+  position: relative;
+  text-indent: 0;
+}
+
+.slate-editor .slate-numbered-p::before {
+  content: counter(para-num) ".";
+  position: absolute;
+  left: 0;
+  width: 1.8em;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ─── Editor paragraph first-line indent ───────────────────────────────────── */
+
+.slate-editor .slate-p {
+  text-indent: 0.5in;
+}
+.slate-editor .slate-p[style*="text-align: center"] {
+  text-indent: 0;
+}
+
+/* ─── Blockquote (statutory quotations) ────────────────────────────────────── */
+
+.slate-editor .slate-blockquote {
+  margin: 0.4em 0;
+  padding-left: 0.5in;
+  padding-right: 0.5in;
+  text-indent: 0;
+}
+
+/* ─── 98.css-style tree view (FP panel) ────────────────────────────────────── */
+
+ul.tree-view {
+  display: block;
+  margin: 0 0 0 8px;
+  padding: 4px 2px 4px 16px;
+  border-left: 1px dotted grey;
+  font-family: "MS Sans Serif", Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  color: #222;
+}
+ul.tree-view li {
+  list-style-type: none;
+  position: relative;
+  cursor: default;
+}
+ul.tree-view li,
+ul.tree-view ul {
+  margin-top: 3px;
+}
+ul.tree-view ul {
+  border-left: 1px dotted grey;
+  margin-left: 16px;
+  padding-left: 16px;
+}
+ul.tree-view li::before {
+  border-bottom: 1px dotted grey;
+  content: "";
+  display: block;
+  left: -16px;
+  position: absolute;
+  top: 6px;
+  width: 12px;
+}
+ul.tree-view li:last-child::after {
+  background: white;
+  bottom: 0;
+  content: "";
+  display: block;
+  left: -17px;
+  position: absolute;
+  top: 7px;
+  width: 2px;
+}
+ul.tree-view details {
+  margin-top: 0;
+}
+ul.tree-view details > summary::-webkit-details-marker,
+ul.tree-view details > summary::marker {
+  display: none;
+}
+ul.tree-view summary {
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+}
+/* Toggle box — CSS ::before on native <details> so the browser updates [open]
+   natively; CSS responds immediately without any React DOM involvement */
+ul.tree-view details > summary::before {
+  content: "+";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #888;
+  background: white;
+  color: #222;
+  font-size: 10px;
+  margin-right: 5px;
+  user-select: none;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+ul.tree-view details[open] > summary::before {
+  content: "−";
+}
+/* All levels: center toggle on vertical line (-22px → spans -6px→+6px from ul border).
+   ul.tree-view has margin-left: 8px so the 6px leftward overhang doesn't clip.
+   margin-left: -6px + padding-left: 6px on summary extends fp-selected background leftward
+   so label text (net at -5px from summary left) stays inside the blue highlight. */
+ul.tree-view li > details > summary {
+  margin-left: -6px;
+  padding-left: 6px;
+}
+ul.tree-view li > details > summary::before {
+  margin-left: -22px;
+  position: relative;
+}
+ul.tree-view .fp-selected {
+  background-color: #000080;
+  color: white;
+}
+ul.tree-view .fp-selected * {
+  color: white;
+}
+
