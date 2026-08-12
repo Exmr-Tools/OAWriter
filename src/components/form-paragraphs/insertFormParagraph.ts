@@ -62,7 +62,7 @@ function parseLineToNodes(line: string) {
   const parts = normalized.split(SEGMENT_RE)
   return parts
     .filter((p) => p.length > 0)
-    .flatMap((part) => {
+    .flatMap((part): unknown[] => {
       if (/^\[\d+\]$|^\[\*\*\*\]$/.test(part)) {
         return [placeholder(part)]
       }
@@ -163,7 +163,7 @@ function applyListContinuation(
     blockAfter?.indent != null &&
     listType &&
     listType === (blockAfter.listStyleType as string | undefined) &&
-    !ULIST_STYLE_TYPES.includes(listType)
+    !(ULIST_STYLE_TYPES as readonly string[]).includes(listType)
   ) {
     const prevStart = (blockBefore.listStart as number | undefined) ?? 1
     editor.tf.setNodes(

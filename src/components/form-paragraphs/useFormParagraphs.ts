@@ -3,7 +3,7 @@ import type { MpepParagraph } from '@/types/mpep'
 import mpepData from '@/data/mpep-paragraphs.json'
 import { buildTree, type TreeNode } from './buildTree'
 
-const allParagraphs = mpepData as MpepParagraph[]
+const allParagraphs = mpepData as unknown as MpepParagraph[]
 const fullTree = buildTree(allParagraphs)
 
 function filterTree(nodes: TreeNode[], q: string): TreeNode[] {

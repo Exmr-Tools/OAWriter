@@ -2,13 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
 import { useFormParagraphs } from '@/components/form-paragraphs/useFormParagraphs'
 import type { TreeNode } from '@/components/form-paragraphs/buildTree'
-
-function collectFps(nodes: TreeNode[]) {
-  return nodes.flatMap((n) => [
-    ...(n.paragraph ? [n.paragraph] : []),
-    ...collectFps(n.children),
-  ])
-}
+import type { MpepParagraph } from '@/types/mpep'
 
 describe('useFormParagraphs', () => {
   it('returns a non-empty tree by default', () => {
@@ -61,7 +55,7 @@ describe('useFormParagraphs', () => {
     act(() => result.current.setSearchQuery('Final'))
     // Leaf nodes (no children) are only included when they themselves match.
     // Parent FP nodes may be included to preserve hierarchy even if they don't match.
-    function collectLeafFps(nodes: TreeNode[]) {
+    function collectLeafFps(nodes: TreeNode[]): MpepParagraph[] {
       return nodes.flatMap((n) => {
         if (n.children.length === 0 && n.paragraph) return [n.paragraph]
         return collectLeafFps(n.children)

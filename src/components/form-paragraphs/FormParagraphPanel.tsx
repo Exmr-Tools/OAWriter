@@ -10,7 +10,7 @@ import { ALPHABETICAL } from './alphabetical'
 import { SUBJECT } from './subject'
 import mpepData from '@/data/mpep-paragraphs.json'
 
-const allParagraphs = mpepData as MpepParagraph[]
+const allParagraphs = mpepData as unknown as MpepParagraph[]
 // Key by p.number (trimmed) because some JSON id fields have trailing spaces
 const fpIndex = new Map(allParagraphs.map((p) => [p.number.trim(), p]))
 

@@ -192,8 +192,8 @@ export async function downloadAsDocx(
 
   // Serialize the Plate value to HTML using a static (no-hooks) editor
   const staticEditor = createSlateEditor({
-    plugins: DOCX_EDITOR_PLUGINS as Parameters<typeof createSlateEditor>[0]['plugins'],
-    value: valueWithLineHeight as Parameters<typeof createSlateEditor>[0]['value'],
+    plugins: DOCX_EDITOR_PLUGINS as NonNullable<Parameters<typeof createSlateEditor>[0]>['plugins'],
+    value: valueWithLineHeight as NonNullable<Parameters<typeof createSlateEditor>[0]>['value'],
   })
   const rawHtml = await serializeHtml(staticEditor, {})
 
